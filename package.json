@@ -1,0 +1,22 @@
+{
+  "name": "donutstocks-worker",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node --import tsx ./src/main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ARR",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "mineflayer": "^4.33.0",
+    "mysql2": "^3.15.3",
+    "node-cron": "^4.2.1",
+    "prismarine-chat": "^1.12.0",
+    "prismarine-item": "^1.17.0",
+    "prismarine-nbt": "^2.7.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
