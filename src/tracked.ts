@@ -8,6 +8,12 @@ export interface TrackedItem {
   search: string;
 }
 
+/*
+* For the guys coming from YouTube:
+*   This is a list of items, the reason it contains image URLs is because
+*   this is the same list I used on my tracker shown in the video.
+*/
+
 export const trackedItems: TrackedItem[] = [
   {
     name: "Elytra",

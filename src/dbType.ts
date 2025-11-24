@@ -1,3 +1,9 @@
+/*
+* For the guys coming from YouTube:
+*   This is copied from my web app too, so there might be some
+*   unused classes or interfaces.
+*/
+
 /**
  * A snapshot is a representation of the lowest price of an item at a specific point in time.
  */
@@ -87,5 +93,5 @@ export interface RawPeriod {
 export enum PeriodType {
   DOWN,
   UP,
-  EQUAL,
+  EQUAL
 }

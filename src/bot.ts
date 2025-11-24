@@ -21,9 +21,7 @@ function scheduleBotReconnect() {
 export function initBot() {}
 
 function getLore(item: Item): string[] | null {
-  const a = (item as Item & { componentMap: any }).componentMap.get(
-    "lore"
-  )?.data;
+  const a = (item as Item & { componentMap: any }).componentMap.get("lore")?.data;
   if (!a) return null;
   return (a as object[]).map((o) => {
     return new ChatMessage(nbt.simplify(o as any)).toString();
@@ -64,8 +62,7 @@ function createBot() {
 
 export async function getAuctionData(item: TrackedItem) {
   // attempt to close current screen
-  if (WORKER_BOT.currentWindow)
-    WORKER_BOT.closeWindow(WORKER_BOT.currentWindow);
+  if (WORKER_BOT.currentWindow) WORKER_BOT.closeWindow(WORKER_BOT.currentWindow);
 
   // open auction house
   WORKER_BOT.chat(`/ah ${item.search}`);
@@ -92,16 +89,13 @@ export async function getAuctionData(item: TrackedItem) {
       if (!sellerLine || !priceLine) return null;
 
       const seller = sellerLine.replace("Seller: ", "").trim();
-      const priceStr = priceLine
-        .replace("Price: $", "")
-        .trim()
-        .replace(/,/g, "");
+      const priceStr = priceLine.replace("Price: $", "").trim().replace(/,/g, "");
 
       return {
         seller,
         price: parseAbbreviatedNumber(priceStr),
         itemType: slot.name,
-        count: slot.count,
+        count: slot.count
       };
     })
     .filter((x) => x != null) as {

@@ -15,18 +15,18 @@ dotenv.config({ quiet: true, path: ".env" });
 initBot();
 
 const db = mysql.createPool({
-    host: process.env.DATABASE_HOST as string,
-    port: parseInt(process.env.DATABASE_PORT as string),
-    user: process.env.DATABASE_USER as string,
-    password: process.env.DATABASE_PASSWORD as string,
-    database: process.env.DATABASE_NAME as string,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+  host: process.env.DATABASE_HOST as string,
+  port: parseInt(process.env.DATABASE_PORT as string),
+  user: process.env.DATABASE_USER as string,
+  password: process.env.DATABASE_PASSWORD as string,
+  database: process.env.DATABASE_NAME as string,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
 (async () => {
-    await db.execute(`
+  await db.execute(`
         CREATE TABLE IF NOT EXISTS snapshots (
             id BIGINT AUTO_INCREMENT PRIMARY KEY,
             item_id VARCHAR(255) NOT NULL,
@@ -38,20 +38,24 @@ const db = mysql.createPool({
 })();
 
 async function run() {
-    for (const item of trackedItems) {
-        try {
-            const snapshot = await getData(item);
+  for (const item of trackedItems) {
+    try {
+      const snapshot = await getData(item);
 
-            if (snapshot == null) {
-                log(`No valid data for ${item.symbol}`);
-                continue;
-            }
+      if (snapshot == null) {
+        log(`No valid data for ${item.symbol}`);
+        continue;
+      }
 
-            await db.execute("INSERT INTO snapshots (item_id, date, price) VALUES (?, ?, ?)", [snapshot.item_id, snapshot.date, snapshot.price]);
-        } catch (err) {
-            log(`Error processing ${item.symbol}:`, err);
-        }
+      await db.execute("INSERT INTO snapshots (item_id, date, price) VALUES (?, ?, ?)", [
+        snapshot.item_id,
+        snapshot.date,
+        snapshot.price
+      ]);
+    } catch (err) {
+      log(`Error processing ${item.symbol}:`, err);
     }
+  }
 }
 
 nodeCron.schedule("* * * * *", () => {
